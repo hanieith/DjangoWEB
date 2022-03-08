@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse_lazy
 
 
 class News(models.Model):
@@ -18,9 +19,15 @@ class News(models.Model):
         verbose_name_plural = 'Новости'
         ordering = ['-created_at']
 
+    def get_absolute_url(self):
+        return reverse_lazy('view_news', kwargs={"news_id": self.pk})
+
 
 class Category(models.Model):
     title = models.CharField(max_length=150, db_index=True, verbose_name='Имя категории')
+
+    def get_absolute_url(self):
+        return reverse_lazy('category', kwargs={"category_id": self.pk})
 
     class Meta:
         verbose_name = 'Категория'
