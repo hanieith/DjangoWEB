@@ -18,11 +18,8 @@ class HomeNews(ListView):
         return News.objects.filter(is_published=True)
 
 
-def index(request):
-    news = News.objects.all()
-    context = {'news': news,
-               'title': 'Список новостей', }
-    return render(request, template_name='news/index.html', context=context)
+# def index(request):
+    ####return render(request, template_name='news/index.html', context=context)
 
 
 def get_category(request, category_id):
