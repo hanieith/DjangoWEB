@@ -1,6 +1,21 @@
 from django.shortcuts import render, get_object_or_404, redirect
+from django.views.generic import ListView, DeleteView, CreateView
 from .models import News, Category
 from .forms import NewsForm
+
+
+class HomeNews(ListView):
+    model = News
+    template_name = 'news/home_news_list.html'
+    context_object_name = 'news'
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Главная страница'
+        return context
+
+    def get_queryset(self):
+        return News.objects.filter(is_published=True)
 
 
 def index(request):
@@ -27,7 +42,8 @@ def add_news(request):
     if request.method == "POST":
         form = NewsForm(request.POST)
         if form.is_valid():
-            news = News.objects.create(**form.cleaned_data)
+            # news = News.objects.create(**form.cleaned_data)
+            news = form.save()
             return redirect(news)
     else:
         form = NewsForm()
