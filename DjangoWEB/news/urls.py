@@ -10,6 +10,3 @@ urlpatterns = [
     path('news/<int:news_id>/', view_news, name='view_news'),
     path('news/add-news', add_news, name='add_news')
 ]
-
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
