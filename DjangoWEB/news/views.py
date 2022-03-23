@@ -5,6 +5,7 @@ from .forms import NewsForm
 from django.urls import reverse_lazy
 from .utils import MyMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.paginator import Paginator
 
 
 class HomeNews(MyMixin, ListView):
@@ -46,21 +47,29 @@ def get_category(request, category_id):
     return render(request, template_name='news/category.html', context=context)
 
 
-#def add_news(request):
- #   if request.method == "POST":
-  #      form = NewsForm(request.POST)
-   #     if form.is_valid():
-    #        # news = News.objects.create(**form.cleaned_data)
-     #       news = form.save()
-      #      return redirect(news)
-    #else:
-     #   form = NewsForm()
-    #return render(request, template_name='news/add_news.html', context={"form": form})
+# def add_news(request):
+#   if request.method == "POST":
+#      form = NewsForm(request.POST)
+#     if form.is_valid():
+#        # news = News.objects.create(**form.cleaned_data)
+#       news = form.save()
+#      return redirect(news)
+# else:
+#   form = NewsForm()
+# return render(request, template_name='news/add_news.html', context={"form": form})
+
+def test(request):
+    objects = ['asd', 'asd1', 'asd2', 'asd3', 'asd4', 'asd5', 'asd6', 'asd7']
+    paginator = Paginator(objects, 2)
+    page_num = request.GET.get('page', 1)
+    page_objects = paginator.get_page(page_num)
+    return render(request, 'news/test.html', {'page_obj':page_objects})
 
 
 class ViewNews(DetailView):
     model = News
     context_object_name = 'news_item'
+    paginate_by = 5
     # template_name = 'news/news_detail.html'
     # pk_url_kwarg = 'news_id'
 
