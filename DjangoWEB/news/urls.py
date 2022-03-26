@@ -3,8 +3,9 @@ from .views import *
 
 
 urlpatterns = [
+    path('logout/', user_logout, name='logout'),
     path('register/', register, name='register'),
-    path('login/', login, name='login'),
+    path('login/', user_login, name='login'),
     path('test/', test, name='test'),
     # path('', index, name='home')
     path('', HomeNews.as_view(), name='home'),
@@ -14,3 +15,6 @@ urlpatterns = [
     #path('news/add-news', add_news, name='add_news')
     path('news/add-news/', CreateNews.as_view(), name='add_news'),
 ]
+
+
+
