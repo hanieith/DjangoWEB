@@ -1,1 +1,1 @@
-News sity on django
+News prj on django
